@@ -1,0 +1,35 @@
+<template>
+  <div id="map"></div>
+</template>
+
+<script>
+/* eslint-disable */
+import firebaseConfig from "../config/firebase";
+import gmaps from "../config/gmaps";
+
+export default {
+  name: "Map",
+  data() {
+    return {};
+  },
+  created() {
+    gmaps().then(() => {
+      // The location of Uluru
+      var uluru = { lat: -25.344, lng: 131.036 };
+      // The map, centered at Uluru
+      var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 4,
+        center: uluru
+      });
+      // The marker, positioned at Uluru
+      var marker = new google.maps.Marker({ position: uluru, map: map });
+    });
+  }
+};
+</script>
+
+<style scoped>
+#map {
+  height: calc(100vh - 64px);
+}
+</style>
