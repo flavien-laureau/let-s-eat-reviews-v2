@@ -9,7 +9,7 @@
           >
         </b-col>
         <b-col class="my-auto">
-          <b-form @submit="onSubmit" @reset="onReset">
+          <b-form>
             <b-row cols="1" cols-sm="4">
               <b-col
                 ><p class="m-0">

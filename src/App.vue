@@ -2,7 +2,7 @@
   <div id="app">
     <b-container fluid>
       <b-row><HeaderApp /></b-row>
-      <b-row cols="1" cols-lg="2">
+      <b-row cols="1" cols-xl="2">
         <b-col class="p-0"><Map /></b-col>
         <b-col class="p-0"><List /></b-col>
       </b-row>

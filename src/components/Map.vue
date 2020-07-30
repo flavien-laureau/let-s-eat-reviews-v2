@@ -23,6 +23,10 @@ export default {
       });
       // The marker, positioned at Uluru
       var marker = new google.maps.Marker({ position: uluru, map: map });
+
+      google.maps.event.addListener(map, "dragend", function() {
+        alert("map dragged");
+      });
     });
   }
 };
