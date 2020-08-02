@@ -4,8 +4,8 @@
 
 <script>
 /* eslint-disable */
-import firebaseConfig from "../config/firebase";
 import gmaps from "../config/gmaps";
+import setUserPos from "../config/setUserPos";
 
 export default {
   name: "Map",
@@ -14,19 +14,14 @@ export default {
   },
   created() {
     gmaps().then(() => {
-      // The location of Uluru
-      var uluru = { lat: -25.344, lng: 131.036 };
-      // The map, centered at Uluru
-      var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 4,
-        center: uluru
-      });
-      // The marker, positioned at Uluru
-      var marker = new google.maps.Marker({ position: uluru, map: map });
+      setUserPos(google);
 
-      google.maps.event.addListener(map, "dragend", function() {
-        alert("map dragged");
-      });
+      // var marker = new google.maps.Marker({ position: userPos, map: map });
+
+      /* google.maps.event.addListener(map, "dragend", function() {
+      alert("map dragged");
+    }); */
+      // console.log(new google.maps.Geocoder());
     });
   }
 };
@@ -34,6 +29,6 @@ export default {
 
 <style scoped>
 #map {
-  height: calc(100vh - 64px);
+  height: calc(100vh - 70px);
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <section id="list">
-    <div v-for="(restau, index) in restaurants" :key="index" class="restau">
+    <div v-for="(restau, index) in filterRestau" :key="index" class="restau">
       <a class="more">Voir les avis</a>
       <div class="img-wrapper">
         <img class="img-restau" src="../ressources/img/image-test.jpg" />
@@ -8,7 +8,10 @@
       <h2 class="name">{{ restau.name }}</h2>
       <hr class="hr" />
       <p class="address">{{ restau.vicinity }}</p>
-      <p class="rating">{{ restau.rating }}/5</p>
+      <div class="rating">
+        <img class="star" src="../ressources/img/star-solid.svg" />
+        <p>{{ restau.rating }}/5</p>
+      </div>
     </div>
   </section>
 </template>
@@ -19,33 +22,29 @@ import listStyle from "../ressources/js/listStyle";
 export default {
   name: "List",
   data() {
-    return {
-      restaurants: [
-        { name: "restau1", vicinity: "blablablablablablablabla", rating: 4 },
-        { name: "restau2", vicinity: "blablaaa", rating: 2 },
-        { name: "restau3", vicinity: "blabla 3eme", rating: 5 },
-        {
-          name: "restau4restau4restau4 restau4",
-          vicinity: "blabla",
-          rating: 4
-        },
-        { name: "restau5", vicinity: "blablaaaaa", rating: 2 },
-        { name: "restau6", vicinity: "blabla 6eme", rating: 5 }
-      ]
-    };
+    return {};
   },
-  mounted() {
+  updated() {
     listStyle();
+  },
+  computed: {
+    filterRestau() {
+      return this.$store.state.restaurants;
+    }
   }
 };
 </script>
 
 <style scoped>
+.star {
+  width: 25px;
+}
 #list {
-  background-color: darkgray;
-  height: calc(100vh - 64px);
+  background-color: #818884;
+  height: calc(100vh - 70px);
   padding-top: 30px;
   overflow: scroll;
+  border-left: black 2px solid;
 }
 
 .restau {
@@ -55,7 +54,7 @@ export default {
   padding-right: 75px;
   height: 150px;
   margin: 0 30px 30px;
-  background-color: #e96b55;
+  background-color: #c3d9b8;
   border-radius: 150px;
   cursor: pointer;
 }
@@ -65,7 +64,7 @@ export default {
   top: -10px;
   left: -10px;
   border-radius: 100px;
-  background-color: #fafafa;
+  background-color: #f0eed7;
   padding: 10px;
   z-index: 1000;
   transition: all 0.2s;
@@ -82,7 +81,7 @@ export default {
   height: 37px;
   line-height: 47px;
   font-size: 24px;
-  color: #333;
+  color: black;
   transition: all 0.4s;
   margin-bottom: 15px;
   overflow: hidden;
@@ -95,9 +94,16 @@ export default {
 
 .address,
 .rating {
-  color: #fafafa;
+  color: black;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.rating {
+  display: flex;
+}
+.rating p {
+  margin: 0 0 0 7px;
 }
 
 .more {
@@ -109,7 +115,7 @@ export default {
   line-height: 150px;
   text-align: center;
   width: 100%;
-  background-color: #e96b55;
+  background-color: #c3d9b8;
   font-size: 48px;
   font-style: italic;
   opacity: 0;
@@ -119,6 +125,11 @@ export default {
   border-radius: 150px;
   font-family: "Pacifico";
   text-shadow: 0 1px 1px #222;
+}
+@media screen and (max-width: 1199px) {
+  #list {
+    border-left: none;
+  }
 }
 
 @media screen and (max-width: 576px) {
