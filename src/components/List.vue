@@ -3,7 +3,7 @@
     <div v-for="(restau, index) in filterRestau" :key="index" class="restau">
       <a class="more">Voir les avis</a>
       <div class="img-wrapper">
-        <img class="img-restau" src="../ressources/img/image-test.jpg" />
+        <img class="img-restau" :src="restau.img" />
       </div>
       <h2 class="name">{{ restau.name }}</h2>
       <hr class="hr" />

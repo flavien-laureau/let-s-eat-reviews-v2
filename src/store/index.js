@@ -16,6 +16,9 @@ const mutations = {
   },
   UPDATE_RESTAU: (state, restaurants) => {
     state.restaurants = restaurants
+  },
+  SET_MARKERS: (state, markers) => {
+    state.markers = markers
   }
 }
 
@@ -25,6 +28,11 @@ const actions = {
   }, data) {
     commit("SET_MAP", data.map)
     commit("SET_GOOGLE", data.google)
+  },
+  setMarkers({
+    commit
+  }, markers) {
+    commit('SET_MARKERS', markers)
   }
 }
 

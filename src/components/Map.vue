@@ -15,13 +15,6 @@ export default {
   created() {
     gmaps().then(() => {
       setUserPos(google);
-
-      // var marker = new google.maps.Marker({ position: userPos, map: map });
-
-      /* google.maps.event.addListener(map, "dragend", function() {
-      alert("map dragged");
-    }); */
-      // console.log(new google.maps.Geocoder());
     });
   }
 };

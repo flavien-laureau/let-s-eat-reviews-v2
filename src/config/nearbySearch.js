@@ -1,10 +1,17 @@
 import store from "../store/index";
+import setMarkers from "./setMarkers";
+import firebaseConfig from "./firebase";
+
 
 export default function () {
+  const API_KEY = firebaseConfig.apiKey;
+
   const map = store.state.map;
   const google = store.state.google;
   const service = new google.maps.places.PlacesService(map);
+
   const center = map.getCenter();
+
   const nearbySearchRequest = {
     location: center,
     radius: 650,
@@ -12,24 +19,22 @@ export default function () {
   };
 
   function nearbySearchCallback(results, status) {
-    const API_KEY = "AIzaSyDwVBZRZ8ib234h1JgQ77l4V0FdD-SIlx8";
     if (status == 'OK') {
       let restaurants = results;
-
       if (restaurants.length > 9) {
         restaurants.length = 9;
       }
 
       restaurants.forEach((restaurant) => {
         function getDetailsCallback(reviews) {
-          /* if (reviews == null || reviews == undefined) {
-            setTimeout(function() {
+          /*if (reviews == null || reviews == undefined) {
+            setTimeout(function () {
               service.getDetails(getDetailsRequest, getDetailsCallback);
             }, 250);
-          } */
-          if (reviews.reviews == undefined) {
+          }*/
+          /*if (reviews.reviews == undefined) {
             reviews.reviews = [];
-          }
+          }*/
           restaurant.reviews = reviews;
           const lat = restaurant.geometry.location.lat();
           const lng = restaurant.geometry.location.lng();
@@ -41,7 +46,7 @@ export default function () {
           placeId: restaurant.place_id
         };
 
-        service.getDetails(getDetailsRequest, getDetailsCallback);
+        service.getDetails(getDetailsRequest, getDetailsCallback())
 
         if (restaurant.rating == undefined) {
           restaurant.rating = "X";
@@ -49,8 +54,9 @@ export default function () {
           restaurant.rating = restaurant.rating.toFixed(1);
         }
       });
-
       store.commit("UPDATE_RESTAU", restaurants);
+      setMarkers();
+
     }
   }
 
